@@ -1,3 +1,4 @@
+package models;
 
 /**
  * Representa un cultivo con un nombre.

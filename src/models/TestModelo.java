@@ -1,4 +1,6 @@
+import models.Cultivo;
 import java.util.Scanner;
+
 public class TestModelo {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -9,7 +11,7 @@ public class TestModelo {
             String nombreCultivo = scanner.nextLine();
 
             if (nombreCultivo.equalsIgnoreCase("salir")) {
-                break; // Salir del bucle si el usuario escribe 'salir'
+                break;
             }
 
             Cultivo cultivo = new Cultivo(nombreCultivo);
