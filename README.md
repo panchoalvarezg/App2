@@ -1,98 +1,109 @@
-# **TICS200: App #2 – Gestión Agrícola en Java (POO)**
+# 🌱 App2 - Sistema de Gestión Agrícola
 
-## **Profesores**
-- **María Loreto Arriagada**  
-  loreto.arriagada.v@edu.uai.cl
+![Java](https://img.shields.io/badge/Java-16%2B-orange)
+![Estado](https://img.shields.io/badge/Estado-En%20Desarrollo-green)
+![Licencia](https://img.shields.io/badge/Licencia-MIT-blue)
 
-- **Paulina González**  
-  paulina.gonzalez.p@edu.uai.cl
+Aplicación desarrollada en **Java 16+** que implementa un sistema de gestión integral para cultivos, parcelas y actividades agrícolas. Este proyecto aplica principios sólidos de Programación Orientada a Objetos (POO) y utiliza persistencia de datos en formato CSV.
 
-- **Justo Vargas**  
-  justo.vargas@edu.uai.cl
+## ✨ Características principales
 
-## **Ayudante**
-- **Diego Duhalde**  
-  dduhalde@alumnos.uai.cl
+- Gestión completa del ciclo de vida de cultivos
+- Administración de parcelas y sus asignaciones
+- Seguimiento de actividades agrícolas (riego, fertilización, cosecha)
+- Generación de reportes e indicadores de rendimiento
+- Persistencia de datos mediante archivos CSV
 
----
+## 👥 Integrantes del equipo
 
-## 1. Objetivos
+| Nombre         | Correo electrónico        | GitHub                                 |
+| -------------- | ------------------------- | -------------------------------------- |
+| Cristobal Segu | csegu@alumnos.uai.cl      | [@usuario](https://github.com/usuario) |
+| Diego Soler    | disoler@alumnos.uai.cl    | [@Dxeg0o](https://github.com/Dxeg0o)   |
+| Alonso Paniate | apaniate@alumnos.uai.cl   | [@usuario](https://github.com/usuario) |
+| Felipe Retamal | felretamal@alumnos.uai.cl | [@usuario](https://github.com/usuario) |
 
-1. **Estructurar** un programa en Java siguiendo principios de la **Programación Orientada a Objetos (POO)**:  
-   - Herencia  
-   - Encapsulamiento  
-   - Paquetes  
-   - Composición  
-   - Interfaces  
-   - Abstracción  
-2. **Persistir datos** a un archivo CSV, manejando lectura y escritura de información.  
-3. Practicar **herramientas de apoyo** a la programación: GIT (fork, pull requests, commits balanceados), debuggers, etc.
+## 📝 Equipo académico
 
----
+### Profesores
 
-## 2. Enunciado
+- María Loreto Arriagada - [loreto.arriagada.v@edu.uai.cl](mailto:loreto.arriagada.v@edu.uai.cl)
+- Paulina González - [paulina.gonzalez.p@edu.uai.cl](mailto:paulina.gonzalez.p@edu.uai.cl)
+- Justo Vargas - [justo.vargas@edu.uai.cl](mailto:justo.vargas@edu.uai.cl)
 
-Imaginemos que una empresa agrícola necesita un **software de gestión de cultivos**. El objetivo es mantener un registro de los cultivos, parcelas, y actividades de mantenimiento. Al iniciar el programa, se leerá un archivo CSV (`cultivos.csv`) que representa el estado inicial del sistema. Al finalizar, todos los cambios se guardarán nuevamente en el mismo archivo.
+### Ayudante
 
-### 2.1 Requerimientos funcionales
+- Diego Duhalde - [dduhalde@alumnos.uai.cl](mailto:dduhalde@alumnos.uai.cl)
 
-El programa debe:
+## 🚀 Instalación y ejecución
 
-1. Iniciarse desde la consola con:  
+### Requisitos previos
+
+- Java JDK 16 o superior
+- Git
+
+### Pasos para compilar y ejecutar
+
+1. **Clonar el repositorio**
+
    ```bash
-   java App2 cultivos.csv
+   git clone https://github.com/<usuario>/App2.git
+   cd App2
    ```
-   donde App2.java es la clase principal y cultivos.csv el archivo de persistencia.
 
-2. Presentar un menú principal en consola, que permita acceder a las siguientes funciones:
+2. **Compilar el proyecto**
 
-   - **Gestión de Cultivos**
-     - Listar cultivos existentes.
-     - Crear un nuevo cultivo.
-     - Eliminar un cultivo (solo si no tiene actividades pendientes).
-     - Editar la información básica de un cultivo (nombre, variedad, fecha de siembra, etc.).
+   ```bash
+   mkdir -p bin
+   javac -d bin src/models/*.java src/services/*.java src/ui/*.java src/App2.java
+   ```
 
-   - **Gestión de Parcelas**
-     - Listar parcelas con sus cultivos.
-     - Agregar una parcela.
-     - Eliminar una parcela (solo si no tiene cultivos activos).
-     - Editar una parcela (cambiar tamaño, ubicación, etc.).
-     - Asignar un cultivo a una parcela.
+3. **Ejecutar la aplicación**
+   ```bash
+   java -cp bin App2 cultivos.csv
+   ```
 
-   - **Gestión de Actividades**
-     - Registrar actividad (riego, fertilización, cosecha, etc.) para un cultivo.
-     - Listar actividades por cultivo.
-     - Eliminar actividad.
-     - Marcar actividad como completada.
-
-   - **Búsqueda/Reporte**
-     - Buscar cultivos por nombre o variedad (mostrar datos relevantes).
-     - Reporte de cultivos activos, cosechados, o en riesgo.
-
-   - **Salir**
-     - Guardar toda la información en cultivos.csv y finalizar el programa.
-
-### 2.2 Supuestos y detalles
-
-- Cada parcela puede tener múltiples cultivos.
-- Al menos una clase abstracta o interfaz debe emplearse para representar algún concepto genérico (por ejemplo, "ElementoAgrícola" que represente algo con nombre, fecha y estado).
-- Se sugiere utilizar colecciones de Java (ArrayList, HashMap, List, etc.) para administrar cultivos, parcelas, actividades, etc.
-- El usuario ingresa "información válida" (no se requiere validación exhaustiva).
-- No hay campos vacíos en el CSV al iniciar.
-- Se evaluará el uso de herencia, encapsulamiento y paquetes para organizar las clases (por ejemplo, un paquete models, otro services, etc.).
-
-### 2.3 Formato del CSV
-
-El formato del CSV será sencillo y consistente, todas las líneas tendrán la misma estructura:
+## 📂 Estructura del proyecto
 
 ```
-Cultivo,"Maíz","Variedad Dulce",32.5,"PARCELA-A01","2023-03-01","ACTIVO",["RIEGO:2023-03-10","FERTILIZACION:2023-03-20"]
-Cultivo,"Trigo","Variedad Premium",45.2,"PARCELA-B03","2023-02-15","ACTIVO",["RIEGO:2023-02-25","COSECHA:2023-06-15"]
-Cultivo,"Tomate","Cherry",10.0,"PARCELA-C02","2023-04-05","EN_RIESGO",["FUMIGACION:2023-04-20"]
-Cultivo,"Lechuga","Romana",8.5,"PARCELA-A02","2023-03-10","COSECHADO",["RIEGO:2023-03-20","COSECHA:2023-05-01"]
+App2/
+├── src/
+│   ├── models/          # Clases de dominio (Cultivo, Parcela, Actividad...)
+│   ├── services/        # Lógica de negocio y manejo de CSV
+│   ├── ui/              # Menús y control de interacción por consola
+│   └── App2.java        # Clase principal con punto de entrada
+├── bin/                 # Archivos compilados (.class)
+├── docs/
+│   ├── diagrama_clases.png
+│   └── informe_diseno.pdf
+├── cultivos.csv         # Archivo de persistencia de datos
+└── README.md
 ```
 
-Cada línea contiene:
+## 📚 Funcionalidades
+
+### Gestión de Cultivos
+
+- **Listar cultivos**: Visualización completa del inventario de cultivos
+- **Crear cultivos**: Registro de nuevas variedades con sus características
+- **Editar cultivos**: Modificación de propiedades de cultivos existentes
+- **Eliminar cultivos**: Borrado condicional (sólo si no existen actividades pendientes)
+
+### Gestión de Parcelas
+
+- **Listar parcelas**: Vista detallada incluyendo cultivos asignados
+- **Agregar parcelas**: Registro de nuevas unidades de terreno
+- **Editar parcelas**: Modificación de propiedades de parcelas existentes
+- **Eliminar parcelas**: Borrado condicional (sólo si no hay cultivos activos)
+- **Asignar cultivo**: Vinculación de cultivos a parcelas específicas
+
+### Gestión de Actividades
+
+- **Registrar actividades**: Creación de tareas como riego, fertilización o cosecha
+- **Listar por cultivo**: Filtrado de actividades por tipo de cultivo
+- **Eliminar actividades**: Borrado de tareas programadas
+- **Marcar completadas**: Seguimiento del estado de las actividades
+  Cada línea contiene:
 - Tipo de registro (siempre "Cultivo")
 - Nombre del cultivo
 - Variedad
@@ -170,14 +181,14 @@ Se evaluará en particular el uso correcto de:
 
 ## 5. Rúbrica de Evaluación
 
-| Criterio | Peso | Descripción |
-|----------|------|-------------|
-| 1. Funcionamiento general | 30% | <ul><li>El proyecto compila y se ejecuta correctamente.</li><li>Menús y submenús funcionan sin errores ni excepciones no controladas.</li><li>Guardado y lectura de cultivos.csv se realizan de forma coherente.</li></ul> |
-| 2. Paradigma Orientado a Objetos | 30% | <ul><li>Uso adecuado de clases, encapsulamiento, herencia, interfaces y colecciones.</li><li>Organización en paquetes clara y lógica.</li><li>Aplicación de principios de OOP (mínima duplicación de código, coherencia en la jerarquía de clases, etc.).</li></ul> |
-| 3. Informe de diseño y reflexiones finales | 10% | <ul><li><strong>Informe de diseño</strong>: explica la arquitectura, justifica las decisiones (7%).</li><li><strong>Reflexiones</strong>: aprendizajes, desafíos, etc. (5%).</li><li><strong>Uso de IA</strong>: transparencia y validación (3%).</li></ul> |
-| 4. Uso de Git (commits y pull request) / Organización del repositorio/Presentación | 20% | <ul><li>Commits equilibrados entre integrantes (aporte individual visible).</li><li>Estructura del repositorio clara, con README que indique cómo compilar/ejecutar.</li></ul> |
-| 5. Presentación | 10% | <ul><li>Presentar en clases la solución la app</li><li>Presentar la app funcionando.</li></ul> |
-| **Total** | **100%** |  |
+| Criterio                                                                           | Peso     | Descripción                                                                                                                                                                                                                                                         |
+| ---------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. Funcionamiento general                                                          | 30%      | <ul><li>El proyecto compila y se ejecuta correctamente.</li><li>Menús y submenús funcionan sin errores ni excepciones no controladas.</li><li>Guardado y lectura de cultivos.csv se realizan de forma coherente.</li></ul>                                          |
+| 2. Paradigma Orientado a Objetos                                                   | 30%      | <ul><li>Uso adecuado de clases, encapsulamiento, herencia, interfaces y colecciones.</li><li>Organización en paquetes clara y lógica.</li><li>Aplicación de principios de OOP (mínima duplicación de código, coherencia en la jerarquía de clases, etc.).</li></ul> |
+| 3. Informe de diseño y reflexiones finales                                         | 10%      | <ul><li><strong>Informe de diseño</strong>: explica la arquitectura, justifica las decisiones (7%).</li><li><strong>Reflexiones</strong>: aprendizajes, desafíos, etc. (5%).</li><li><strong>Uso de IA</strong>: transparencia y validación (3%).</li></ul>         |
+| 4. Uso de Git (commits y pull request) / Organización del repositorio/Presentación | 20%      | <ul><li>Commits equilibrados entre integrantes (aporte individual visible).</li><li>Estructura del repositorio clara, con README que indique cómo compilar/ejecutar.</li></ul>                                                                                      |
+| 5. Presentación                                                                    | 10%      | <ul><li>Presentar en clases la solución la app</li><li>Presentar la app funcionando.</li></ul>                                                                                                                                                                      |
+| **Total**                                                                          | **100%** |                                                                                                                                                                                                                                                                     |
 
 ### Penalizaciones y Bonus
 
@@ -200,16 +211,41 @@ javac src/*.java
 java src/App2 cultivos.csv
 ```
 
-Se mostrará un menú en consola que permitirá:
-- Listar cultivos
-- Crear/editar/eliminar un cultivo
-- Agregar/editar parcelas
-- Registrar actividades
-- Buscar cultivos/parcelas
-- etc.
+### Búsquedas y Reportes
 
-Al seleccionar "Salir", se guardarán los cambios en cultivos.csv.
+- **Búsqueda avanzada**: Localización de cultivos por nombre o variedad
+- **Reportes dinámicos**: Generación de informes de cultivos activos, en riesgo o cosechados
 
-## 7. Conclusión
+### Persistencia de Datos
 
-Este App #2 busca afianzar conocimientos de POO en Java, lectura/escritura de CSV, y la correcta aplicación de principios de diseño (herencia, encapsulamiento, interfaces, composición). Aseguren una arquitectura clara, un diagrama de clases que refleje su solución, y un uso equilibrado de GIT para evidenciar la contribución de cada integrante.
+- Carga inicial desde archivo CSV
+- Guardado automático de cambios al finalizar
+
+## 📊 Diagramas y documentación
+
+### Diagrama de clases
+
+![Diagrama de Clases](docs/diagrama_clases.png)
+
+Para ver el diagrama completo y la documentación detallada, consulte los siguientes archivos:
+
+- [Informe de diseño (PDF)](docs/informe_diseno.pdf)
+- [Reflexiones y autoevaluación](docs/reflexiones.pdf)
+
+## 🤔 Reflexiones y aprendizajes
+
+El proyecto ha presentado diversos desafíos técnicos que han sido abordados mediante:
+
+- Aplicación de patrones de diseño adecuados
+- Implementación rigurosa de principios SOLID
+- Uso estratégico de herramientas de desarrollo
+
+_Nota: La sección de reflexiones incluye detalles sobre el uso de IA como herramienta de apoyo durante el desarrollo._
+
+## 🙏 Agradecimientos
+
+Agradecemos al profesor y ayudante por su orientación durante el desarrollo de este proyecto.
+
+---
+
+© 2025 | Desarrollado para el curso de Lenguajes y Paradigmas
