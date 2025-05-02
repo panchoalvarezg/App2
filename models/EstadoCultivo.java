@@ -1,5 +1,5 @@
 package models;
 
-public class EstadoCultivo {
-    
+public enum EstadoCultivo {
+    ACTIVO, EN_RIESGO, COSECHADO;
 }
