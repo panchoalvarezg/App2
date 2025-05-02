@@ -1,4 +1,4 @@
-package agricola.services;
+package services;
 
 public class ParcelaService {
     
