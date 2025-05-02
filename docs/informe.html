@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Informe Técnico del Proyecto de Análisis de Pedidos de Pizza</title>
+    <title>Informe Técnico del Proyecto App2 - Sistema de Gestión Agrícola</title>
     <link
       href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap"
       rel="stylesheet"
@@ -29,7 +29,7 @@
         padding: 0 20px;
       }
       header {
-        background-color: #00529b;
+        background-color: #2e7d32;
         color: #ffffff;
         padding: 30px 0;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -72,7 +72,7 @@
         white-space: nowrap;
       }
       nav ul li a {
-        color: #00529b;
+        color: #2e7d32;
         text-decoration: none;
         font-weight: 600;
         transition: all 0.2s ease;
@@ -86,7 +86,7 @@
         left: 0;
         width: 0;
         height: 2px;
-        background-color: #00529b;
+        background-color: #2e7d32;
         transition: width 0.3s ease;
       }
       nav ul li a:hover::after {
@@ -96,10 +96,10 @@
         padding: 40px 0;
       }
       h2 {
-        color: #00529b;
+        color: #2e7d32;
         margin-top: 20px;
         margin-bottom: 20px;
-        border-bottom: 2px solid #00529b;
+        border-bottom: 2px solid #2e7d32;
         padding-bottom: 10px;
         font-size: 1.8rem;
       }
@@ -119,7 +119,7 @@
         overflow-x: auto;
         border-radius: 8px;
         margin: 16px 0;
-        border-left: 4px solid #00529b;
+        border-left: 4px solid #2e7d32;
       }
       code {
         font-family: Consolas, Monaco, "Andale Mono", monospace;
@@ -154,7 +154,7 @@
       }
       /* Estilos para resaltar los elementos strong */
       strong {
-        color: #00529b;
+        color: #2e7d32;
         font-weight: 600;
       }
       /* Estilos para pantallas pequeñas */
@@ -217,7 +217,7 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
-        background-color: #00529b;
+        background-color: #2e7d32;
         color: #ffffff;
         border: none;
         border-radius: 50%;
@@ -231,305 +231,342 @@
         z-index: 200;
       }
       #scrollToTopBtn:hover {
-        background-color: #003f7f;
+        background-color: #1b5e20;
       }
     </style>
   </head>
   <body>
     <header>
       <div class="header-content">
-        <h1>Informe Técnico del Proyecto de Análisis de Pedidos de Pizza</h1>
-        <p>Optimización, escalabilidad y buenas prácticas en C</p>
+        <h1>Informe Técnico del Proyecto App2 - Sistema de Gestión Agrícola</h1>
+        <p>Optimización, escalabilidad y buenas prácticas de POO en Java</p>
       </div>
     </header>
 
     <nav>
       <div class="container">
         <ul>
-          <li><a href="#organizacion">Organización del Código</a></li>
-          <li><a href="#estructuras">Estructuras de Datos</a></li>
-          <li><a href="#modularidad">Modularidad</a></li>
-          <li><a href="#punteros">Punteros a Funciones</a></li>
-          <li><a href="#diagrama">Diagrama de Flujo</a></li>
-          <li><a href="#interaccion">Interacción entre Archivos</a></li>
-          <li><a href="#recursos">Recursos Externos</a></li>
+          <li><a href="#arquitectura">Arquitectura</a></li>
+          <li><a href="#modelos">Modelos de Dominio</a></li>
+          <li><a href="#principios">Principios POO</a></li>
+          <li><a href="#patrones">Patrones de Diseño</a></li>
+          <li><a href="#persistencia">Persistencia CSV</a></li>
+          <li><a href="#diagrama">Diagrama de Clases</a></li>
+          <li><a href="#ui">Interfaz de Usuario</a></li>
           <li><a href="#reflexiones">Reflexiones</a></li>
-
         </ul>
       </div>
     </nav>
 
     <main>
       <div class="container">
-        <section id="organizacion" class="content-section">
-          <h2>1. Organización del Código</h2>
+        <section id="arquitectura" class="content-section">
+          <h2>1. Arquitectura del Sistema</h2>
           <p>
-            El proyecto se ha organizado siguiendo una estructura de carpetas
-            convencional para proyectos en C, facilitando la localización y funcionamiento del código al separar claramente la interfaz y la implementación. La estructura es la siguiente:
+            El proyecto se ha organizado siguiendo una arquitectura en capas que separa claramente las responsabilidades, facilitando el mantenimiento y la escalabilidad del código:
           </p>
           <ul>
             <li>
-              <strong>include/</strong> – Contiene los headers (<code>.h</code>)
-              con las declaraciones de funciones y definiciones de estructuras
-              de datos. 
+              <strong>Models/</strong> – Contiene las clases de dominio que representan las entidades del sistema agrícola: <code>Cultivo</code>, <code>Parcela</code>, <code>Actividad</code>, etc.
             </li>
             <li>
-              <strong>src/</strong> – Alberga el código fuente (<code>.c</code>)
-              con la implementación, incluyendo módulos como
-              <code>main.c</code>, <code>csv_parser.c</code> y
-              <code>metrics.c</code>.
+              <strong>Services/</strong> – Alberga la lógica de negocio y los servicios que operan sobre los modelos, incluyendo el manejo de persistencia en CSV.
             </li>
             <li>
-              <strong>test/</strong> – Incluye los datos de prueba, por ejemplo,
-              el archivo CSV utilizado para verificar el funcionamiento del
-              programa.
+              <strong>UI/</strong> – Implementa la interfaz de usuario por consola, con menús interactivos para la gestión del sistema.
             </li>
           </ul>
           <p>
-            Esta división en carpetas permite una mayor claridad en la gestión y
-            escalabilidad del proyecto, facilitando el entendimiento y desarrollo del mismo.
+            Esta división en capas proporciona una clara separación de responsabilidades, facilitando la comprensión del código, las pruebas unitarias y la incorporación de nuevas funcionalidades sin afectar al resto del sistema.
           </p>
         </section>
 
-        <section id="estructuras" class="content-section">
-          <h2>2. Estructuras de Datos Empleadas</h2>
+        <section id="modelos" class="content-section">
+          <h2>2. Modelos de Dominio</h2>
           <p>
-            La estructura principal es <code>Order</code>, la cual representa un
-            pedido individual de pizza. El codigo de la estructura está dado
-            por:
+            Las principales clases de dominio implementadas en el sistema son:
           </p>
-          <pre><code>typedef struct {
-            double pizza_id;          // Identificador único de pizza
-            double order_id;          // Identificador de orden
-            char pizza_name_id[50];   // Identificador del nombre de pizza
-            double quantity;          // Cantidad de pizzas
-            char order_date[MAX_DATE_LENGTH];  // Fecha de la orden
-            char order_time[20];      // Hora de la orden
-            double unit_price;        // Precio unitario
-            double total_price;       // Precio total
-            char pizza_size[10];      // Tamaño de pizza
-            char pizza_category[20];  // Categoría de pizza
-            char pizza_ingredients[MAX_INGREDIENTS][50];  // Lista de ingredientes
-            char pizza_name[MAX_PIZZA_NAME];  // Nombre completo de la pizza
-            int num_ingredients;      // Número de ingredientes
-        } Order;</code></pre>
+          <pre><code>public class Cultivo {
+    private int id;
+    private String nombre;
+    private String variedad;
+    private TipoSuelo sueloRecomendado;
+    private int diasHastaCosecha;
+    private EstadoCultivo estado;
+    private List<Actividad> actividades;
+    
+    // Constructor, getters, setters y métodos adicionales
+}</code></pre>
           <p>
-            Explicando más en profundidad lo que dicen en los comentarios de
-            cada atributo, podemos ver que los campos representan:
+            Los modelos clave del sistema incluyen:
           </p>
           <ul>
             <li>
-              <code>pizza_id y order_id</code>: Identificadores únicos para la
-              pizza y para el pedido, respectivamente.
+              <code>Cultivo</code>: Representa un tipo de planta con sus características específicas como variedad, tiempo de maduración y requisitos de suelo.
             </li>
             <li>
-              <code>pizza_name_id y pizza_name</code>: Uno puede verse como un
-              identificador para el nombre y el otro como el nombre completo de
-              la pizza.
-            </li>
-            <li><code>quantity</code>: Cantidad de pizzas en el pedido.</li>
-            <li>
-              <code>order_date y order_time</code>: Fecha y hora en que se
-              realizó el pedido.
-            </li>
-
-            <li>
-              <code>unit_price y total_price</code>: Precio unitario y precio
-              total del pedido.
-            </li>
-
-            <li>
-              <code>pizza_size y pizza_category</code>: Información sobre el
-              tamaño y la categoría de la pizza.
+              <code>Parcela</code>: Modela una unidad de terreno agrícola con propiedades como tamaño, tipo de suelo y los cultivos asignados.
             </li>
             <li>
-              <code>pizza_ingredients y num_ingredients</code>: Una lista de
-              ingredientes y el número de ingredientes presentes.
+              <code>Actividad</code>: Representa las tareas agrícolas como riego, fertilización o cosecha, asociadas a un cultivo específico.
+            </li>
+            <li>
+              <code>Enumeraciones</code>: Se utilizan tipos enumerados como <code>EstadoCultivo</code>, <code>TipoSuelo</code> y <code>TipoActividad</code> para representar valores constantes y mejorar la seguridad de tipos.
             </li>
           </ul>
           <p>
-            Respecto a los tipos de datos utilizados para las distintas métricas se encuentran los siguientes:
-          </p>
-          <ul>
-            <li>
-              <code>Double</code>: para valores númericos: esto permite almacenar números enteros como decimales del CSV.
-            </li>
-            <li>
-              <code>Arrays</code>: De caracteres de tamaño fijo para mantener el orden y flexibilidad.
-            </li>
-            <li><code>Interger</code>: Para cantidades de ingredientes.</li>
-            </li>
-          </ul>
-          <p>
-            Cada instancia de <code>Order</code> corresponde a una fila del
-            archivo CSV, lo que facilita el acceso y manipulación de los datos
-            de cada pedido de forma estructurada y eficiente.
+            Los modelos implementan interfaces y relaciones que reflejan fielmente las interacciones en un entorno agrícola real, garantizando que el sistema sea tanto preciso como flexible.
           </p>
         </section>
 
-        <section id="modularidad" class="content-section">
-          <h2>3. Modularidad</h2>
+        <section id="principios" class="content-section">
+          <h2>3. Principios de POO Aplicados</h2>
           <p>
-            El código se divide en múltiples módulos, permitiendo que cada uno
-            cumpla una única responsabilidad, facilitando así el trabajo y entendimiento del código:
+            El diseño del sistema se basa en los siguientes principios fundamentales de la Programación Orientada a Objetos:
           </p>
           <ul>
             <li>
-              <strong>csv_parser.c</strong>: Se encarga de leer y parsear el
-              archivo CSV, convirtiendo cada línea en una estructura
-              <code>Order</code>.
+              <strong>Encapsulación</strong>: Todas las clases de dominio implementan atributos privados con métodos de acceso controlado (getters/setters), protegiendo los datos y garantizando la integridad del sistema.
             </li>
             <li>
-              <strong>metrics.c</strong>: Contiene funciones para el cálculo de
-              diversas métricas a partir de los datos obtenidos.
+              <strong>Herencia</strong>: Se utiliza para especializar comportamientos. Por ejemplo, las clases <code>ActividadRiego</code> y <code>ActividadFertilizacion</code> extienden de una clase base <code>Actividad</code>.
             </li>
             <li>
-              <strong>main.c</strong>: Coordina la ejecución del programa,
-              integrando la lectura de datos, el cálculo de métricas y la
-              interacción con el usuario.
+              <strong>Polimorfismo</strong>: Los servicios operan sobre interfaces, permitiendo el intercambio de implementaciones sin modificar el código cliente.
+            </li>
+            <li>
+              <strong>Abstracción</strong>: Se emplean interfaces y clases abstractas para definir comportamientos sin especificar la implementación concreta.
             </li>
           </ul>
           <p>
-            Esta separación en módulos ayuda a mantener el código limpio, reduce
-            la dependencia entre componentes, en donde cada uno tiene su responsabilidad única y bien definida, además permite testear cada modulo independientemente y permite incorporar nuevas
-            funcionalidades sin afectar el sistema general.
+            Además, se han seguido los principios SOLID para garantizar un diseño robusto y mantenible:
+          </p>
+          <ul>
+            <li>
+              <strong>Responsabilidad Única (S)</strong>: Cada clase tiene una sola razón para cambiar.
+            </li>
+            <li>
+              <strong>Abierto/Cerrado (O)</strong>: Las clases están abiertas para extensión pero cerradas para modificación.
+            </li>
+            <li>
+              <strong>Sustitución de Liskov (L)</strong>: Las subclases pueden sustituir a sus clases base sin alterar el comportamiento del programa.
+            </li>
+            <li>
+              <strong>Segregación de Interfaces (I)</strong>: Se prefieren interfaces específicas en lugar de una interfaz general.
+            </li>
+            <li>
+              <strong>Inversión de Dependencias (D)</strong>: Los módulos de alto nivel no dependen de los de bajo nivel, sino de abstracciones.
+            </li>
+          </ul>
+        </section>
+
+        <section id="patrones" class="content-section">
+          <h2>4. Patrones de Diseño Implementados</h2>
+          <p>
+            Para resolver problemas recurrentes de diseño, se han implementado varios patrones que mejoran la estructura y el comportamiento del sistema:
+          </p>
+          <ul>
+            <li>
+              <strong>Singleton</strong>: Utilizado en los servicios de gestión para garantizar una única instancia que coordine el acceso a los datos.
+            </li>
+            <li>
+              <strong>Repository</strong>: Implementado para abstraer el acceso a los datos, independientemente de la fuente (CSV, base de datos, etc.).
+            </li>
+            <li>
+              <strong>Factory Method</strong>: Empleado para la creación de diferentes tipos de actividades agrícolas según los requisitos específicos.
+            </li>
+            <li>
+              <strong>Observer</strong>: Aplicado para notificar cambios en el estado de los cultivos a los componentes interesados.
+            </li>
+          </ul>
+          <p>
+            La implementación de estos patrones ha contribuido significativamente a la robustez del sistema, facilitando la extensibilidad y el mantenimiento del código a lo largo del tiempo.
           </p>
         </section>
 
-        <section id="punteros" class="content-section">
-          <h2>4. Uso de Punteros a Funciones</h2>
+        <section id="persistencia" class="content-section">
+          <h2>5. Persistencia de Datos en CSV</h2>
           <p>
-            Se ha implementado el uso de punteros a funciones para lograr una
-            mayor flexibilidad y evitar múltiples condicionales al seleccionar
-            la función de métrica a ejecutar. Se utiliza el siguiente typedef:
+            El sistema implementa un mecanismo de persistencia basado en archivos CSV que permite almacenar y recuperar la información de cultivos, parcelas y actividades:
           </p>
-          <pre><code>typedef char* (*MetricFunction)(int*, Order*);</code></pre>
+          <pre><code>public class CsvRepository&lt;T&gt; implements Repository&lt;T&gt; {
+    private final String filePath;
+    private final Function&lt;String[], T&gt; mapper;
+    private final Function&lt;T, String[]&gt; toStringArray;
+    
+    // Constructor y métodos implementados
+    
+    @Override
+    public List&lt;T&gt; findAll() {
+        List&lt;T&gt; items = new ArrayList&lt;&gt;();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            // Saltamos la cabecera
+            reader.readLine();
+            
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] values = line.split(",");
+                items.add(mapper.apply(values));
+            }
+        } catch (IOException e) {
+            // Manejo de excepciones
+        }
+        return items;
+    }
+    
+    @Override
+    public void saveAll(List&lt;T&gt; items) {
+        // Implementación de guardado
+    }
+}</code></pre>
           <p>
-            En <code>main.c</code> se define, por ejemplo, una estructura
-            <code>MetricMapping</code> que asocia el nombre de la métrica con la
-            función correspondiente. Esto permite invocar dinámicamente la
-            función adecuada según la métrica solicitada, haciendo el código más
-            modular y fácil de extender.
+            El sistema de persistencia incluye:
+          </p>
+          <ul>
+            <li>
+              <strong>Lectura automática</strong> al iniciar la aplicación, cargando el estado previo del sistema.
+            </li>
+            <li>
+              <strong>Escritura automática</strong> al finalizar, asegurando que todos los cambios queden registrados.
+            </li>
+            <li>
+              <strong>Manejo de errores</strong> para situaciones como archivos inexistentes o con formato incorrecto.
+            </li>
+            <li>
+              <strong>Validación de datos</strong> para garantizar la integridad de la información almacenada.
+            </li>
+          </ul>
+          <p>
+            Esta implementación genérica permite adaptarse fácilmente a diferentes entidades del sistema, manteniendo un código limpio y evitando la duplicación.
           </p>
         </section>
 
         <section id="diagrama" class="content-section">
-          <h2>5. Diagrama de Flujo del Programa</h2>
+          <h2>6. Diagrama de Clases</h2>
           <p>
-            A continuación se presenta el diagrama general del flujo del
-            programa, generado con PlantUML:
+            A continuación se presenta el diagrama de clases del sistema, que ilustra las relaciones entre los diferentes componentes:
           </p>
           <div class="diagrama">
-            <a href="https://github.com/Cseguuu/App1_Soler_Segu/tree/e48f92d2b5571c3bfc548ad3385f7e7e9963fc36/images/diagrama.png" target="_blank">
-              Haz click aquí para ver el diagrama
+            <a href="docs/diagrama_clases.png" target="_blank">
+              Haz click aquí para ver el diagrama de clases completo
             </a>
           </div>
-          
           <p>
-            El diagrama de flujo plantea lo siguiente: 
-            <ul><li>1. Inicio: El programa recibe dos argumentos, el archivo CSV y la o las metricas a calcular.</li>
-            <li>2. Apertura del archivo: Se intenta abrir el archivo, si es correcto procede, en el caso contrario da error y termina.</li>
-            <li>3. Procesamiento de CSV: Se usa csv_parser para leer el archivo si es exitoso, almacena los datos en estructuras.</li>
-            <li>4. Validación métrica: Verifica si es valida la métrica ingresada, si no lo es muestra mensaje de error, el caso contrario lo busca en la tabla MetricMapping.
-            <li>5. Cálculo y resultado: llama a la función de la métrica solicitada, recibe el resultado y lo imprime.</li>
-            <li>6. Liberación de memoria: Libera la memoria usada por las estructuras Order y los resultados.</li></ul>
-          </p>
-          Este enfoque modular permite separar responsabilidades, manejar errores de forma temprana y nos facilitó la incorporación de nuevas métricas sin necesidad de alterar la estructura general del código.
-        </section>
-
-        <section id="interaccion" class="content-section">
-          <h2>6. Interacción entre Archivos</h2>
-          <p>
-            La comunicación entre los distintos módulos se realiza de la
-            siguiente manera:
+            El diagrama de clases muestra:
           </p>
           <ul>
-            <li>
-              <strong>De main.c a csv_parser.c:</strong> Se invoca la función de
-              parseo para leer el archivo CSV y almacenar los pedidos en un
-              arreglo de estructuras <code>Order</code>.
-            </li>
-            <li>
-              <strong>De main.c a metrics.c:</strong> Se utiliza una tabla de
-              mapeo que asocia nombres de métricas a sus funciones
-              correspondientes. Dependiendo de la métrica solicitada, se llama a
-              la función adecuada.
-            </li>
-            <li>
-              <strong>Manejo de memoria:</strong> Tanto el arreglo de
-              <code>Order</code> como los resultados de las métricas se
-              gestionan dinámicamente, liberando la memoria al finalizar su uso.
-            </li>
-            <li>
-              <strong>Comunicación mediante headers:</strong> Los archivos
-              <code>.h</code> permiten que <code>main.c</code> conozca las
-              funciones y estructuras definidas en los demás módulos.
-            </li>
+            <li>Las clases de dominio y sus relaciones (asociación, composición, herencia)</li>
+            <li>Las interfaces que definen los contratos entre componentes</li>
+            <li>Los servicios que implementan la lógica de negocio</li>
+            <li>Los repositorios que gestionan la persistencia</li>
           </ul>
-          En resumen, organizar el código en módulos y usar archivos header para definir interfaces claras hace que el sistema sea mucho más fácil de entender y mantener. Cada parte se encarga de algo específico, lo que permite trabajar de manera más ágil y sin complicaciones. Además, manejar la memoria dinámicamente y utilizar un mapeo para las métricas aporta flexibilidad y escalabilidad, ayudándonos a evitar problemas futuros y a hacer cambios sin romper todo el sistema.
+          <p>
+            Esta estructura organizativa permite una clara visualización de las responsabilidades y dependencias entre componentes, facilitando la comprensión global del sistema.
+          </p>
         </section>
 
-        <section id="recursos" class="content-section">
-          <h2>7. Recursos Externos Utilizados</h2>
-          
-          <h3>Herramientas de Inteligencia Artificial</h3>
+        <section id="ui" class="content-section">
+          <h2>7. Interfaz de Usuario</h2>
+          <p>
+            La interfaz de usuario del sistema es una aplicación de consola que proporciona una experiencia intuitiva a través de menús textuales:
+          </p>
+          <pre><code>public class MainMenu {
+    private final Scanner scanner;
+    private final CultivoService cultivoService;
+    private final ParcelaService parcelaService;
+    private final ActividadService actividadService;
+    
+    public void mostrarMenuPrincipal() {
+        boolean salir = false;
+        while (!salir) {
+            System.out.println("\n===== SISTEMA DE GESTIÓN AGRÍCOLA =====");
+            System.out.println("1. Gestión de Cultivos");
+            System.out.println("2. Gestión de Parcelas");
+            System.out.println("3. Gestión de Actividades");
+            System.out.println("4. Reportes y Búsquedas");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            
+            int opcion = scanner.nextInt();
+            scanner.nextLine(); // Consumir el salto de línea
+            
+            switch (opcion) {
+                case 1:
+                    mostrarMenuCultivos();
+                    break;
+                case 2:
+                    mostrarMenuParcelas();
+                    break;
+                // Otros casos
+                case 0:
+                    salir = true;
+                    break;
+                default:
+                    System.out.println("Opción no válida");
+            }
+        }
+    }
+    
+    // Implementación de los submenús
+}</code></pre>
+          <p>
+            La interfaz de usuario está diseñada siguiendo estos principios:
+          </p>
           <ul>
             <li>
-              <strong>ChatGPT</strong>: Se utilizó para definir la estructura modular del proyecto y resolver dudas específicas relacionadas con punteros a funciones y buenas prácticas en C.
+              <strong>Separación de responsabilidades</strong>: La UI solo se encarga de la interacción con el usuario, delegando la lógica a los servicios.
             </li>
             <li>
-              <strong>Claude</strong>: Se empleó para complementar la información técnica necesaria en diversas etapas del desarrollo.
+              <strong>Validación de entradas</strong>: Cada entrada del usuario es validada para evitar errores y comportamientos inesperados.
+            </li>
+            <li>
+              <strong>Mensajes claros</strong>: Se proporcionan mensajes informativos y de error que guían al usuario a través del sistema.
+            </li>
+            <li>
+              <strong>Menús anidados</strong>: La organización jerárquica de los menús facilita la navegación por las distintas funcionalidades.
             </li>
           </ul>
-          
-          <h3>Documentación Oficial y Comunidades en Línea</h3>
-          <ul>
-            <li>
-              <strong>Documentación oficial del lenguaje C</strong>: Se consultó para asegurar el cumplimiento de los estándares técnicos.
-            </li>
-            <li>
-              <strong>Stack Overflow</strong>: Se recurrió a esta comunidad para abordar aspectos específicos del parseo de archivos CSV y la gestión de memoria.
-            </li>
-          </ul>
-          
-          <p>La integración de estas fuentes de apoyo garantizó que el desarrollo del código se realizara conforme a los estándares técnicos y los requerimientos establecidos en las bases del proyecto.</p>
+          <p>
+            Esta implementación por consola permite un acceso rápido y eficiente a todas las funcionalidades del sistema, siendo a la vez extensible para futuras mejoras.
+          </p>
         </section>
-        
+
         <section id="reflexiones" class="content-section">
           <h2>8. Reflexiones Finales</h2>
           <p style="text-align: justify;">
-            Al concluir este proyecto, cada integrante del equipo quiere compartir sus
+            Al concluir este proyecto, cada integrante del equipo comparte sus
             reflexiones sobre la experiencia, los aprendizajes y los desafíos
             encontrados:
           </p>
         
           <div style="margin: 30px 0; text-align: justify;">
-            <h3 style="color: #00529b; border-bottom: 1px solid #00529b; padding-bottom: 5px; margin-bottom: 15px;">Cristobal Segú</h3>
+            <h3 style="color: #2e7d32; border-bottom: 1px solid #2e7d32; padding-bottom: 5px; margin-bottom: 15px;">Nombre Apellido</h3>
             <p style="text-align: justify;">
-              Lo más interesante de la tarea fue el aprender a trabajar con el lenguaje de programación C, ya que nunca me había enfrentado a este, con lo cual todo a lo que me enfrenté en esta tarea fue nuevo, teniendo que asimilar una gran cantidad de funciones y forma de este lenguaje tal como el manejo de la memoria dinámica, el emplear el debugging, el cual me fue más complejo que el comprender el lenguaje. A su vez el aprender a trabajar en equipo mediante GitHub, herramienta con la cual ya había trabajado con anterioridad, aunque sin entender a profundidad el funcionamiento de este y simplemente seguir instrucciones y mediante esta tarea me fue posible entender cómo opera esta herramienta. Una de las principales lecciones aprendidas mediante el uso de C fue el modularizar las funciones del programa, la gestión de la memoria, solicitando memoria al programa, el liberar los resultados para así no colapsar la RAM o aprender a realizarlo para futuros proyectos de mayor escala.
-Uno de los errores a los cuales nos enfrentamos fue No such file or directory o que el programa no se ejecutaba correctamente. Esto lo enfrentamos mediante la utilización de GDB, se compilo el programa, luego se analizó el código paso a paso analizando todos los archivos, también se utilizó comandos para buscar errores, por ejemplo el programa fallaba en leer el csv y pusimos un breakpoint en la función de lectura y comprobamos si la ruta del archivo era correcta y luego si este se abría correctamente. Para las pruebas se creó un archivo csv de prueba para comprobar el correcto funcionamiento de las métricas en base a datos conocidos. 
+              Este proyecto me permitió aplicar y profundizar en los conceptos de Programación Orientada a Objetos que hemos estudiado durante el curso. El mayor desafío fue diseñar un sistema que modelara correctamente las relaciones entre cultivos, parcelas y actividades agrícolas, manteniendo al mismo tiempo un código limpio y escalable.
+              
+              Aprendí la importancia de planificar adecuadamente la arquitectura antes de comenzar a codificar, lo que nos evitó numerosos problemas de diseño posteriormente. También descubrí el valor de los patrones de diseño como herramientas para resolver problemas comunes de manera elegante.
+              
+              Durante el desarrollo, enfrentamos dificultades con la persistencia de datos en CSV, especialmente al manejar relaciones entre entidades. Esto nos llevó a investigar y aplicar soluciones creativas que finalmente resultaron en un sistema más robusto.
             </p>
           </div>
         
           <div style="margin: 30px 0; text-align: justify;">
-            <h3 style="color: #00529b; border-bottom: 1px solid #00529b; padding-bottom: 5px; margin-bottom: 15px;">Diego Soler</h3>
+            <h3 style="color: #2e7d32; border-bottom: 1px solid #2e7d32; padding-bottom: 5px; margin-bottom: 15px;">Nombre Apellido</h3>
             <p style="text-align: justify;">
-              En esta tarea me metí de lleno en C, un lenguaje que hasta ahora me era totalmente nuevo. Además, pude profundizar mis conocimientos en GitHub, lo que me ayudó a trabajar en equipo y a entender mejor cómo gestionar cambios y resolver conflictos en el código.
-
-Al igual que mi compañero, uno de los desafíos fue el error "No such file or directory". Tuvimos que meter mano y revisar paso a paso para ver por qué no funcionaba, lo que nos ayudó a aprender más sobre debugging y manejo de rutas.
-
-En resumen, la experiencia me dejó grandes aprendizajes sobre la modularización del código, la gestión de memoria y, sobre todo, a enfrentar y resolver problemas reales en equipo, apoyado en la ia pero siempre ocupandola de una manera crítica y de apoyo.
+              La implementación de los principios SOLID fue uno de los aspectos más desafiantes y a la vez gratificantes de este proyecto. Comprendí la importancia de la responsabilidad única y cómo este principio facilita enormemente el mantenimiento del código.
+              
+              El trabajo en equipo utilizando Git fue fundamental para nuestro éxito, permitiéndonos colaborar de manera eficiente y resolver conflictos de forma organizada. Aprendí la importancia de la comunicación clara y la documentación exhaustiva en proyectos colaborativos.
+              
+              Como aprendizaje adicional, destacaría la experiencia en el manejo de excepciones y validaciones, aspectos cruciales para crear un sistema robusto que responda adecuadamente ante situaciones inesperadas o entradas incorrectas.
             </p>
           </div>
-        
-
         </section>
       </div>
     </main>
 
     <footer>
       <div class="container">
-        <p>© 2025 Grupo Cristobal Segú y Diego Soler</p>
+        <p>© 2025 App2 - Sistema de Gestión Agrícola | Universidad Adolfo Ibáñez</p>
       </div>
     </footer>
 
