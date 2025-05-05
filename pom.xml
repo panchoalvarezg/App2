@@ -11,6 +11,7 @@
   <properties>
     <maven.compiler.source>16</maven.compiler.source>
     <maven.compiler.target>16</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- Codificación UTF-8 -->
   </properties>
 
   <dependencies>
@@ -32,6 +33,18 @@
         <version>3.1.0</version>
         <configuration>
           <mainClass>app.App2</mainClass>
+        </configuration>
+      </plugin>
+
+      <!-- Plugin para compilar con configuración específica -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.13.0</version>
+        <configuration>
+          <source>16</source>
+          <target>16</target>
+          <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
     </plugins>
