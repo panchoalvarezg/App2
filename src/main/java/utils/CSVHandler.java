@@ -14,7 +14,12 @@ public class CSVHandler {
         try {
             List<String> lineas = Files.readAllLines(Paths.get(path));
             for (String linea : lineas) {
-                String[] partes = linea.split(",(?=\"|")");
+                // Corregir la expresión regular para evitar errores
+                String[] partes = linea.split(",(?=\")");
+                
+                // Validar que la línea tiene al menos la cantidad esperada de partes
+                if (partes.length < 8) continue;
+
                 if (!partes[0].equals("Cultivo")) continue;
                 String nombre = partes[1].replace("\"", "");
                 String variedad = partes[2].replace("\"", "");
@@ -31,12 +36,16 @@ public class CSVHandler {
                 for (String act : actividadesRaw.split(",")) {
                     if (act.isBlank()) continue;
                     String[] datos = act.trim().split(":");
-                    cultivo.getActividades().add(new Actividad(datos[0], LocalDate.parse(datos[1])));
+                    if (datos.length == 2) { // Validar que tiene exactamente tipo y fecha
+                        cultivo.getActividades().add(new Actividad(datos[0], LocalDate.parse(datos[1])));
+                    }
                 }
                 cultivos.add(cultivo);
             }
         } catch (IOException e) {
             System.out.println("Error leyendo el archivo: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Error procesando el archivo: " + e.getMessage());
         }
         return cultivos;
     }
