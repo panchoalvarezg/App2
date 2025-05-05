@@ -34,4 +34,13 @@ public class Menu {
             }
         }
     }
+
+    public static void main(String[] args) {
+        // Inicialización del servicio CultivoService
+        CultivoService cultivoService = new CultivoService();
+
+        // Crear el menú y mostrarlo
+        Menu menu = new Menu(cultivoService);
+        menu.mostrarMenu();
+    }
 }
