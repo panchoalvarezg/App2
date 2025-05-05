@@ -22,12 +22,3 @@ public abstract class ElementoAgricola {
     public void setFechaSiembra(LocalDate fechaSiembra) { this.fechaSiembra = fechaSiembra; }
     public void setEstado(String estado) { this.estado = estado; }
 }
-
-
-// src/models/Cultivo.java
-package models;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
