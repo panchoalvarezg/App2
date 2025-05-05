@@ -34,7 +34,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>ui.App2</mainClass> <!-- Clase principal -->
+              <mainClass>ui.Menu</mainClass> <!-- Clase principal -->
             </manifest>
           </archive>
         </configuration>
