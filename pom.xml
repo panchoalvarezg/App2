@@ -26,17 +26,21 @@
 
   <build>
     <plugins>
-      <!-- Plugin para ejecutar clases con main() -->
+      <!-- Plugin para empaquetar el JAR -->
       <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>3.1.0</version>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
         <configuration>
-          <mainClass>ui.App2</mainClass>
+          <archive>
+            <manifest>
+              <mainClass>ui.App2</mainClass> <!-- Clase principal -->
+            </manifest>
+          </archive>
         </configuration>
       </plugin>
 
-      <!-- Plugin para compilar con configuración específica -->
+      <!-- Plugin para compilar el código -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
