@@ -1,12 +1,9 @@
 package ui;
 
-import services.CultivoService;
 import models.Cultivo;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import services.CultivoService;
+
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Menu {
@@ -22,16 +19,23 @@ public class Menu {
         while (!salir) {
             System.out.println("\nMenú Principal:");
             System.out.println("1. Listar cultivos");
-            System.out.println("2. Salir");
+            System.out.println("2. Agregar cultivo");
+            System.out.println("3. Eliminar cultivo");
+            System.out.println("4. Salir");
             System.out.print("Seleccione una opción: ");
 
             String opcion = scanner.nextLine();
             switch (opcion) {
                 case "1":
-                    cultivoService.getCultivos().forEach(c ->
-                        System.out.println("- " + c.getNombre() + " | " + c.getVariedad() + " | Estado: " + c.getEstado() + " | Parcela: " + c.getParcela()));
+                    listarCultivos();
                     break;
                 case "2":
+                    agregarCultivo();
+                    break;
+                case "3":
+                    eliminarCultivo();
+                    break;
+                case "4":
                     salir = true;
                     break;
                 default:
@@ -40,38 +44,50 @@ public class Menu {
         }
     }
 
-    public static void main(String[] args) {
-        List<Cultivo> cultivos = new ArrayList<>();
+    private void listarCultivos() {
+        System.out.println("\nLista de cultivos:");
+        cultivoService.getCultivos().forEach(c ->
+            System.out.println("- " + c.getNombre() + " | " + c.getVariedad() + " | Estado: " + c.getEstado() + " | Parcela: " + c.getParcela())
+        );
+    }
 
-        // Ruta del archivo CSV
-        String filePath = "src/main/resources/cultivos.csv";
+    private void agregarCultivo() {
+        System.out.print("Ingrese el nombre del cultivo: ");
+        String nombre = scanner.nextLine();
 
-        // Leer el archivo CSV
-        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (line.startsWith("Cultivo")) { // Saltar encabezado si lo tiene
-                    String[] values = line.split(",");
-                    
-                    // Parsear los valores, eliminando comillas dobles
-                    String nombre = values[1].replace("\"", "");
-                    String variedad = values[2].replace("\"", "");
-                    double area = Double.parseDouble(values[3]);
-                    String parcela = values[4].replace("\"", "");
-                    String fechaPlantacion = values[5].replace("\"", "");
-                    String estado = values[6].replace("\"", "");
-                    String actividades = values[7].replace("\"", "");
+        System.out.print("Ingrese la variedad del cultivo: ");
+        String variedad = scanner.nextLine();
 
-                    // Crear y agregar un objeto Cultivo
-                    cultivos.add(new Cultivo(nombre, variedad, area, parcela, fechaPlantacion, estado, actividades));
-                }
-            }
-        } catch (IOException e) {
-            System.err.println("Error al leer el archivo CSV: " + e.getMessage());
+        System.out.print("Ingrese el área del cultivo (en hectáreas): ");
+        double area = Double.parseDouble(scanner.nextLine());
+
+        System.out.print("Ingrese el código de la parcela: ");
+        String parcela = scanner.nextLine();
+
+        System.out.print("Ingrese la fecha de plantación (YYYY-MM-DD): ");
+        LocalDate fechaPlantacion = LocalDate.parse(scanner.nextLine());
+
+        System.out.print("Ingrese el estado del cultivo: ");
+        String estado = scanner.nextLine();
+
+        Cultivo cultivo = new Cultivo(nombre, variedad, area, parcela, fechaPlantacion.toString(), estado, "");
+        cultivoService.agregarCultivo(cultivo);
+    }
+
+    private void eliminarCultivo() {
+        System.out.print("Ingrese el nombre del cultivo a eliminar: ");
+        String nombre = scanner.nextLine();
+
+        if (cultivoService.eliminarCultivo(nombre)) {
+            System.out.println("Cultivo eliminado exitosamente.");
+        } else {
+            System.out.println("No se encontró un cultivo con ese nombre.");
         }
+    }
 
-        // Instanciar el servicio CultivoService con los cultivos cargados
-        CultivoService cultivoService = new CultivoService(cultivos);
+    public static void main(String[] args) {
+        // Inicialización del servicio CultivoService con una lista inicial vacía
+        CultivoService cultivoService = new CultivoService(new ArrayList<>());
 
         // Crear el menú y mostrarlo
         Menu menu = new Menu(cultivoService);
