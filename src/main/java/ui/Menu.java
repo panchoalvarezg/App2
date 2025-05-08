@@ -1,8 +1,12 @@
-// src/ui/Menu.java
-// src/ui/Menu.java
 package ui;
 
 import services.CultivoService;
+import models.Cultivo;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -37,8 +41,31 @@ public class Menu {
     }
 
     public static void main(String[] args) {
-        // Inicialización del servicio CultivoService
-        CultivoService cultivoService = new CultivoService();
+        List<Cultivo> cultivos = new ArrayList<>();
+
+        // Ruta del archivo CSV
+        String filePath = "src/main/resources/cultivos.csv";
+
+        // Leer el archivo CSV
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(","); // Suponiendo que los valores están separados por comas
+                if (values.length == 3) { // Validar que la línea tenga exactamente 3 columnas
+                    String nombre = values[0];
+                    String variedad = values[1];
+                    String estado = values[2];
+                    cultivos.add(new Cultivo(nombre, variedad, estado));
+                } else {
+                    System.err.println("Línea con formato incorrecto: " + line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo CSV: " + e.getMessage());
+        }
+
+        // Instanciar el servicio CultivoService con los cultivos cargados
+        CultivoService cultivoService = new CultivoService(cultivos);
 
         // Crear el menú y mostrarlo
         Menu menu = new Menu(cultivoService);
