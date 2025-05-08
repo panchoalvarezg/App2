@@ -1,32 +1,30 @@
-
-// src/models/Cultivo.java
 package models;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-
-public class Cultivo extends ElementoAgricola {
+public class Cultivo {
+    private String nombre;
     private String variedad;
-    private double superficie;
-    private Parcela parcela;
-    private List<Actividad> actividades;
+    private double area;
+    private String parcela;
+    private String fechaPlantacion;
+    private String estado;
+    private String actividades;
 
-    public Cultivo(String nombre, String variedad, double superficie, Parcela parcela, LocalDate fechaSiembra, String estado) {
-        super(nombre, fechaSiembra, estado);
+    public Cultivo(String nombre, String variedad, double area, String parcela, String fechaPlantacion, String estado, String actividades) {
+        this.nombre = nombre;
         this.variedad = variedad;
-        this.superficie = superficie;
+        this.area = area;
         this.parcela = parcela;
-        this.actividades = new ArrayList<>();
+        this.fechaPlantacion = fechaPlantacion;
+        this.estado = estado;
+        this.actividades = actividades;
     }
 
+    // Getters
+    public String getNombre() { return nombre; }
     public String getVariedad() { return variedad; }
-    public double getSuperficie() { return superficie; }
-    public Parcela getParcela() { return parcela; }
-    public List<Actividad> getActividades() { return actividades; }
-
-    public void setVariedad(String variedad) { this.variedad = variedad; }
-    public void setSuperficie(double superficie) { this.superficie = superficie; }
-    public void setParcela(Parcela parcela) { this.parcela = parcela; }
+    public double getArea() { return area; }
+    public String getParcela() { return parcela; }
+    public String getFechaPlantacion() { return fechaPlantacion; }
+    public String getEstado() { return estado; }
+    public String getActividades() { return actividades; }
 }
