@@ -29,7 +29,7 @@ public class Menu {
             switch (opcion) {
                 case "1":
                     cultivoService.getCultivos().forEach(c ->
-                        System.out.println("- " + c.getNombre() + " | " + c.getVariedad() + " | Estado: " + c.getEstado()));
+                        System.out.println("- " + c.getNombre() + " | " + c.getVariedad() + " | Estado: " + c.getEstado() + " | Parcela: " + c.getParcela()));
                     break;
                 case "2":
                     salir = true;
@@ -50,14 +50,20 @@ public class Menu {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-                String[] values = line.split(","); // Suponiendo que los valores están separados por comas
-                if (values.length == 3) { // Validar que la línea tenga exactamente 3 columnas
-                    String nombre = values[0];
-                    String variedad = values[1];
-                    String estado = values[2];
-                    cultivos.add(new Cultivo(nombre, variedad, estado));
-                } else {
-                    System.err.println("Línea con formato incorrecto: " + line);
+                if (line.startsWith("Cultivo")) { // Saltar encabezado si lo tiene
+                    String[] values = line.split(",");
+                    
+                    // Parsear los valores, eliminando comillas dobles
+                    String nombre = values[1].replace("\"", "");
+                    String variedad = values[2].replace("\"", "");
+                    double area = Double.parseDouble(values[3]);
+                    String parcela = values[4].replace("\"", "");
+                    String fechaPlantacion = values[5].replace("\"", "");
+                    String estado = values[6].replace("\"", "");
+                    String actividades = values[7].replace("\"", "");
+
+                    // Crear y agregar un objeto Cultivo
+                    cultivos.add(new Cultivo(nombre, variedad, area, parcela, fechaPlantacion, estado, actividades));
                 }
             }
         } catch (IOException e) {
