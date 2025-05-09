@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public class CSVHandler {
                 String variedad = partes[2].replace("\"", "").trim();
                 double area = Double.parseDouble(partes[3].replace("\"", "").trim());
                 String parcela = partes[4].replace("\"", "").trim();
-                String fechaPlantacion = partes[5].replace("\"", "").trim();
+                LocalDate fechaPlantacion = LocalDate.parse(partes[5].replace("\"", "").trim()); // Conversión de String a LocalDate
                 String estado = partes[6].replace("\"", "").trim();
 
                 // Procesar la lista de actividades
@@ -62,7 +61,7 @@ public class CSVHandler {
             }
         } catch (IOException e) {
             System.err.println("Error leyendo el archivo: " + e.getMessage());
-        } catch (NumberFormatException | DateTimeParseException e) {
+        } catch (Exception e) {
             System.err.println("Error en el formato de los datos: " + e.getMessage());
         }
         return cultivos;
