@@ -6,7 +6,6 @@ import utils.CSVHandler;
 
 import java.time.LocalDate;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 public class Menu {
     private final CultivoService cultivoService;
@@ -71,12 +70,13 @@ public class Menu {
         String parcela = scanner.nextLine();
 
         System.out.print("Ingrese la fecha de plantación (YYYY-MM-DD): ");
-        LocalDate fechaPlantacion = LocalDate.parse(scanner.nextLine());
+        LocalDate fechaPlantacion = LocalDate.parse(scanner.nextLine()); // Conversión de String a LocalDate
 
         System.out.print("Ingrese el estado del cultivo: ");
         String estado = scanner.nextLine();
 
-        Cultivo cultivo = new Cultivo(nombre, variedad, area, parcela, fechaPlantacion.toString(), estado, "");
+        // Crear objeto Cultivo con la lista de actividades como vacío por ahora
+        Cultivo cultivo = new Cultivo(nombre, variedad, area, parcela, fechaPlantacion, estado, new ArrayList<>());
         cultivoService.agregarCultivo(cultivo);
     }
 
