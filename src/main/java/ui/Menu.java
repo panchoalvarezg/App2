@@ -6,7 +6,6 @@ import services.CultivoService;
 import utils.CSVHandler;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Menu {
@@ -44,16 +43,26 @@ public class Menu {
                 case "6": registrarActividades(); break;
                 case "7": buscarCultivosParcelas(); break;
                 case "8": guardarYSalir(); salir = true; break;
-                default: System.out.println("Opción inválida");
+                default: System.out.println("Opción inválida. Intente nuevamente.");
             }
         }
     }
 
     private void listarCultivos() {
         System.out.println("\nLista de cultivos:");
-        cultivoService.getCultivos().forEach(c ->
-            System.out.println("- " + c.getNombre() + " | " + c.getVariedad() + " | Estado: " + c.getEstado() + " | Parcela: " + c.getParcela() + " | Categoría: " + c.getCategoria())
-        );
+        cultivoService.getCultivos().forEach(cultivo -> {
+            System.out.println("\"" + cultivo.getNombre() + "\",\"" +
+                    cultivo.getVariedad() + "\"," +
+                    cultivo.getArea() + ",\"" +
+                    cultivo.getParcela() + "\",\"" +
+                    cultivo.getFechaPlantacion() + "\",\"" +
+                    cultivo.getEstado() + "\",\"" +
+                    cultivo.getCategoria() + "\",[" +
+                    String.join(",", cultivo.getActividades().stream()
+                            .map(a -> "\"" + a.getTipo() + ":" + a.getFecha() + "\"")
+                            .toArray(String[]::new)) +
+                    "]");
+        });
     }
 
     private void agregarCultivo() {
@@ -80,6 +89,7 @@ public class Menu {
 
         Cultivo cultivo = new Cultivo(nombre, variedad, area, parcela, fechaPlantacion, estado, categoria, new ArrayList<>());
         cultivoService.agregarCultivo(cultivo);
+        System.out.println("Cultivo agregado exitosamente.");
     }
 
     private void editarCultivo() {
@@ -115,7 +125,7 @@ public class Menu {
     }
 
     private void gestionarParcelas() {
-        System.out.print("Ingrese el nombre o la categoría del cultivo para gestionar parcelas: ");
+        System.out.print("Ingrese el nombre o la categoría del cultivo: ");
         String identificador = scanner.nextLine();
 
         Cultivo cultivo = cultivoService.buscarCultivoPorNombreOCategoria(identificador);
@@ -127,7 +137,6 @@ public class Menu {
         System.out.print("Ingrese el nuevo código de parcela: ");
         String nuevaParcela = scanner.nextLine();
         cultivo.setParcela(nuevaParcela);
-
         System.out.println("Parcela actualizada exitosamente.");
     }
 
@@ -156,20 +165,26 @@ public class Menu {
         String termino = scanner.nextLine();
 
         cultivoService.getCultivos().stream()
-            .filter(c -> c.getNombre().equalsIgnoreCase(termino) || c.getParcela().equalsIgnoreCase(termino) || c.getCategoria().equalsIgnoreCase(termino))
-            .forEach(c -> System.out.println("- " + c.getNombre() + " | " + c.getVariedad() + " | Parcela: " + c.getParcela() + " | Categoría: " + c.getCategoria()));
+                .filter(cultivo -> cultivo.getNombre().equalsIgnoreCase(termino) ||
+                        cultivo.getParcela().equalsIgnoreCase(termino) ||
+                        cultivo.getCategoria().equalsIgnoreCase(termino))
+                .forEach(cultivo -> {
+                    System.out.println("\"" + cultivo.getNombre() + "\",\"" +
+                            cultivo.getVariedad() + "\"," +
+                            cultivo.getArea() + ",\"" +
+                            cultivo.getParcela() + "\",\"" +
+                            cultivo.getFechaPlantacion() + "\",\"" +
+                            cultivo.getEstado() + "\",\"" +
+                            cultivo.getCategoria() + "\",[" +
+                            String.join(",", cultivo.getActividades().stream()
+                                    .map(a -> "\"" + a.getTipo() + ":" + a.getFecha() + "\"")
+                                    .toArray(String[]::new)) +
+                            "]");
+                });
     }
 
     private void guardarYSalir() {
         csvHandler.guardarCultivosEnCSV(csvPath, cultivoService.getCultivos());
         System.out.println("Cambios guardados exitosamente. ¡Adiós!");
-    }
-
-    public static void main(String[] args) {
-        CSVHandler csvHandler = new CSVHandler();
-        CultivoService cultivoService = new CultivoService(csvHandler.leerCultivosDesdeCSV("src/main/resources/cultivos.csv"));
-
-        Menu menu = new Menu(cultivoService, csvHandler);
-        menu.mostrarMenu();
     }
 }
