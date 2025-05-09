@@ -6,6 +6,7 @@ import utils.CSVHandler;
 
 import java.time.LocalDate;
 import java.util.Scanner;
+import java.util.ArrayList; // Importación añadida para ArrayList
 
 public class Menu {
     private final CultivoService cultivoService;
