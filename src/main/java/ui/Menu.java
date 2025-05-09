@@ -2,6 +2,7 @@ package ui;
 
 import models.Cultivo;
 import services.CultivoService;
+import utils.CSVHandler;
 
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -9,10 +10,13 @@ import java.util.ArrayList;
 
 public class Menu {
     private final CultivoService cultivoService;
+    private final CSVHandler csvHandler;
+    private final String csvPath = "src/main/resources/cultivos.csv";
     private final Scanner scanner = new Scanner(System.in);
 
-    public Menu(CultivoService cultivoService) {
+    public Menu(CultivoService cultivoService, CSVHandler csvHandler) {
         this.cultivoService = cultivoService;
+        this.csvHandler = csvHandler;
     }
 
     public void mostrarMenu() {
@@ -22,7 +26,7 @@ public class Menu {
             System.out.println("1. Listar cultivos");
             System.out.println("2. Agregar cultivo");
             System.out.println("3. Eliminar cultivo");
-            System.out.println("4. Salir");
+            System.out.println("4. Guardar y salir");
             System.out.print("Seleccione una opción: ");
 
             String opcion = scanner.nextLine();
@@ -37,6 +41,7 @@ public class Menu {
                     eliminarCultivo();
                     break;
                 case "4":
+                    guardarYSalir();
                     salir = true;
                     break;
                 default:
@@ -86,12 +91,16 @@ public class Menu {
         }
     }
 
-    public static void main(String[] args) {
-        // Inicialización del servicio CultivoService con una lista inicial vacía
-        CultivoService cultivoService = new CultivoService(new ArrayList<>());
+    private void guardarYSalir() {
+        csvHandler.guardarCultivosEnCSV(csvPath, cultivoService.getCultivos());
+        System.out.println("Cambios guardados exitosamente. ¡Adiós!");
+    }
 
-        // Crear el menú y mostrarlo
-        Menu menu = new Menu(cultivoService);
+    public static void main(String[] args) {
+        CSVHandler csvHandler = new CSVHandler();
+        CultivoService cultivoService = new CultivoService(csvHandler.leerCultivosDesdeCSV("src/main/resources/cultivos.csv"));
+
+        Menu menu = new Menu(cultivoService, csvHandler);
         menu.mostrarMenu();
     }
 }
