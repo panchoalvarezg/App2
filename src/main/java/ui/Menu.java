@@ -52,7 +52,7 @@ public class Menu {
     private void listarCultivos() {
         System.out.println("\nLista de cultivos:");
         cultivoService.getCultivos().forEach(c ->
-            System.out.println("- " + c.getNombre() + " | " + c.getVariedad() + " | Estado: " + c.getEstado() + " | Parcela: " + c.getParcela())
+            System.out.println("- " + c.getNombre() + " | " + c.getVariedad() + " | Estado: " + c.getEstado() + " | Parcela: " + c.getParcela() + " | Categoría: " + c.getCategoria())
         );
     }
 
@@ -75,17 +75,20 @@ public class Menu {
         System.out.print("Ingrese el estado del cultivo: ");
         String estado = scanner.nextLine();
 
-        Cultivo cultivo = new Cultivo(nombre, variedad, area, parcela, fechaPlantacion, estado, new ArrayList<>());
+        System.out.print("Ingrese la categoría del cultivo: ");
+        String categoria = scanner.nextLine();
+
+        Cultivo cultivo = new Cultivo(nombre, variedad, area, parcela, fechaPlantacion, estado, categoria, new ArrayList<>());
         cultivoService.agregarCultivo(cultivo);
     }
 
     private void editarCultivo() {
-        System.out.print("Ingrese el nombre del cultivo a editar: ");
-        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el nombre o la categoría del cultivo a editar: ");
+        String identificador = scanner.nextLine();
 
-        Cultivo cultivo = cultivoService.buscarCultivo(nombre);
+        Cultivo cultivo = cultivoService.buscarCultivo(identificador);
         if (cultivo == null) {
-            System.out.println("No se encontró un cultivo con ese nombre.");
+            System.out.println("No se encontró un cultivo con ese nombre o categoría.");
             return;
         }
 
@@ -93,31 +96,31 @@ public class Menu {
         String nuevoNombre = scanner.nextLine();
         if (!nuevoNombre.isEmpty()) cultivo.setNombre(nuevoNombre);
 
-        System.out.print("Ingrese la nueva variedad (o presione enter para mantener la actual): ");
-        String nuevaVariedad = scanner.nextLine();
-        if (!nuevaVariedad.isEmpty()) cultivo.setVariedad(nuevaVariedad);
+        System.out.print("Ingrese la nueva categoría del cultivo (o presione enter para mantener la actual): ");
+        String nuevaCategoria = scanner.nextLine();
+        if (!nuevaCategoria.isEmpty()) cultivo.setCategoria(nuevaCategoria);
 
         System.out.println("Cultivo editado exitosamente.");
     }
 
     private void eliminarCultivo() {
-        System.out.print("Ingrese el nombre del cultivo a eliminar: ");
-        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el nombre o la categoría del cultivo a eliminar: ");
+        String identificador = scanner.nextLine();
 
-        if (cultivoService.eliminarCultivo(nombre)) {
+        if (cultivoService.eliminarCultivo(identificador)) {
             System.out.println("Cultivo eliminado exitosamente.");
         } else {
-            System.out.println("No se encontró un cultivo con ese nombre.");
+            System.out.println("No se encontró un cultivo con ese nombre o categoría.");
         }
     }
 
     private void gestionarParcelas() {
-        System.out.print("Ingrese el nombre del cultivo para gestionar parcelas: ");
-        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el nombre o la categoría del cultivo para gestionar parcelas: ");
+        String identificador = scanner.nextLine();
 
-        Cultivo cultivo = cultivoService.buscarCultivo(nombre);
+        Cultivo cultivo = cultivoService.buscarCultivo(identificador);
         if (cultivo == null) {
-            System.out.println("No se encontró un cultivo con ese nombre.");
+            System.out.println("No se encontró un cultivo con ese nombre o categoría.");
             return;
         }
 
@@ -129,12 +132,12 @@ public class Menu {
     }
 
     private void registrarActividades() {
-        System.out.print("Ingrese el nombre del cultivo para registrar actividades: ");
-        String nombre = scanner.nextLine();
+        System.out.print("Ingrese el nombre o la categoría del cultivo: ");
+        String identificador = scanner.nextLine();
 
-        Cultivo cultivo = cultivoService.buscarCultivo(nombre);
+        Cultivo cultivo = cultivoService.buscarCultivo(identificador);
         if (cultivo == null) {
-            System.out.println("No se encontró un cultivo con ese nombre.");
+            System.out.println("No se encontró un cultivo con ese nombre o categoría.");
             return;
         }
 
@@ -149,12 +152,12 @@ public class Menu {
     }
 
     private void buscarCultivosParcelas() {
-        System.out.print("Ingrese el nombre o código para buscar: ");
+        System.out.print("Ingrese el nombre, categoría o código para buscar: ");
         String termino = scanner.nextLine();
 
         cultivoService.getCultivos().stream()
-            .filter(c -> c.getNombre().equalsIgnoreCase(termino) || c.getParcela().equalsIgnoreCase(termino))
-            .forEach(c -> System.out.println("- " + c.getNombre() + " | " + c.getVariedad() + " | Parcela: " + c.getParcela()));
+            .filter(c -> c.getNombre().equalsIgnoreCase(termino) || c.getParcela().equalsIgnoreCase(termino) || c.getCategoria().equalsIgnoreCase(termino))
+            .forEach(c -> System.out.println("- " + c.getNombre() + " | " + c.getVariedad() + " | Parcela: " + c.getParcela() + " | Categoría: " + c.getCategoria()));
     }
 
     private void guardarYSalir() {
