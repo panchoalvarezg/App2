@@ -77,10 +77,12 @@ public class CSVHandler {
     public void guardarCultivosEnCSV(String path, List<Cultivo> cultivos) {
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(path))) {
             for (Cultivo c : cultivos) {
+                // Convertir la lista de actividades a texto
                 String actividades = "[" + c.getActividades().stream()
                         .map(a -> "\"" + a.getTipo() + ":" + a.getFecha() + "\"")
                         .reduce((a, b) -> a + "," + b).orElse("") + "]";
 
+                // Formatear la línea para el archivo CSV
                 String linea = String.format(
                         "Cultivo,\"%s\",\"%s\",%.2f,\"%s\",\"%s\",\"%s\",%s",
                         c.getNombre(), c.getVariedad(), c.getArea(),
@@ -88,6 +90,7 @@ public class CSVHandler {
                         c.getEstado(), actividades
                 );
 
+                // Escribir la línea en el archivo
                 writer.write(linea);
                 writer.newLine();
             }
