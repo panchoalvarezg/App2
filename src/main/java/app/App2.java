@@ -18,7 +18,7 @@ public class App2 {
         List<models.Cultivo> cultivos = csvHandler.leerCultivosDesdeCSV(archivoCSV);
 
         CultivoService cultivoService = new CultivoService(cultivos);
-        Menu menu = new Menu(cultivoService);
+        Menu menu = new Menu(cultivoService, csvHandler); // Pasa ambos parámetros
         menu.mostrarMenu();
 
         csvHandler.guardarCultivosEnCSV(archivoCSV, cultivoService.getCultivos());
