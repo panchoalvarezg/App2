@@ -6,6 +6,7 @@ import services.CultivoService;
 import utils.CSVHandler;
 
 import java.time.LocalDate;
+import java.util.ArrayList; // Import necesario
 import java.util.Scanner;
 
 public class Menu {
