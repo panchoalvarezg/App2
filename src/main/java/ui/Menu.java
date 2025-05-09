@@ -6,8 +6,8 @@ import services.CultivoService;
 import utils.CSVHandler;
 
 import java.time.LocalDate;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Menu {
     private final CultivoService cultivoService;
@@ -86,7 +86,7 @@ public class Menu {
         System.out.print("Ingrese el nombre o la categoría del cultivo a editar: ");
         String identificador = scanner.nextLine();
 
-        Cultivo cultivo = cultivoService.buscarCultivo(identificador);
+        Cultivo cultivo = cultivoService.buscarCultivoPorNombreOCategoria(identificador);
         if (cultivo == null) {
             System.out.println("No se encontró un cultivo con ese nombre o categoría.");
             return;
@@ -107,7 +107,7 @@ public class Menu {
         System.out.print("Ingrese el nombre o la categoría del cultivo a eliminar: ");
         String identificador = scanner.nextLine();
 
-        if (cultivoService.eliminarCultivo(identificador)) {
+        if (cultivoService.eliminarCultivoPorNombreOCategoria(identificador)) {
             System.out.println("Cultivo eliminado exitosamente.");
         } else {
             System.out.println("No se encontró un cultivo con ese nombre o categoría.");
@@ -118,7 +118,7 @@ public class Menu {
         System.out.print("Ingrese el nombre o la categoría del cultivo para gestionar parcelas: ");
         String identificador = scanner.nextLine();
 
-        Cultivo cultivo = cultivoService.buscarCultivo(identificador);
+        Cultivo cultivo = cultivoService.buscarCultivoPorNombreOCategoria(identificador);
         if (cultivo == null) {
             System.out.println("No se encontró un cultivo con ese nombre o categoría.");
             return;
@@ -135,7 +135,7 @@ public class Menu {
         System.out.print("Ingrese el nombre o la categoría del cultivo: ");
         String identificador = scanner.nextLine();
 
-        Cultivo cultivo = cultivoService.buscarCultivo(identificador);
+        Cultivo cultivo = cultivoService.buscarCultivoPorNombreOCategoria(identificador);
         if (cultivo == null) {
             System.out.println("No se encontró un cultivo con ese nombre o categoría.");
             return;
