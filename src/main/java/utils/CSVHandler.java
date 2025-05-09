@@ -30,7 +30,7 @@ public class CSVHandler {
 
                 // Dividir los datos respetando las comillas
                 String[] partes = linea.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-                if (partes.length < 7) continue; // Validar que haya suficientes columnas
+                if (partes.length < 8) continue; // Ahora tenemos 8 columnas con la categoría
 
                 // Extraer datos del CSV
                 String nombre = partes[0].replace("\"", "").trim();
@@ -39,9 +39,10 @@ public class CSVHandler {
                 String parcela = partes[3].replace("\"", "").trim();
                 LocalDate fechaPlantacion = LocalDate.parse(partes[4].replace("\"", "").trim());
                 String estado = partes[5].replace("\"", "").trim();
+                String categoria = partes[6].replace("\"", "").trim(); // NUEVO: leer la categoría
 
                 // Procesar la lista de actividades
-                String actividadesRaw = partes[6].replace("[", "").replace("]", "").replace("\"", "").trim();
+                String actividadesRaw = partes[7].replace("[", "").replace("]", "").replace("\"", "").trim();
                 List<Actividad> actividades = new ArrayList<>();
                 if (!actividadesRaw.isEmpty()) {
                     String[] actividadesPartes = actividadesRaw.split(",");
@@ -56,7 +57,7 @@ public class CSVHandler {
                 }
 
                 // Crear el objeto Cultivo y añadirlo a la lista
-                Cultivo cultivo = new Cultivo(nombre, variedad, area, parcela, fechaPlantacion, estado, actividades);
+                Cultivo cultivo = new Cultivo(nombre, variedad, area, parcela, fechaPlantacion, estado, categoria, actividades);
                 cultivos.add(cultivo);
             }
         } catch (IOException e) {
@@ -90,6 +91,7 @@ public class CSVHandler {
                         cultivo.getParcela() + "\",\"" +
                         cultivo.getFechaPlantacion() + "\",\"" +
                         cultivo.getEstado() + "\",\"" +
+                        cultivo.getCategoria() + "\",\"" + // NUEVO: escribir la categoría
                         actividades + "\"");
                 writer.newLine();
             }
