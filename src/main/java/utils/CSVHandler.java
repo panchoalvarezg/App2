@@ -33,15 +33,15 @@ public class CSVHandler {
                 if (partes.length < 7) continue; // Validar que haya suficientes columnas
 
                 // Extraer datos del CSV
-                String nombre = partes[1].replace("\"", "").trim();
-                String variedad = partes[2].replace("\"", "").trim();
-                double area = Double.parseDouble(partes[3].replace("\"", "").trim());
-                String parcela = partes[4].replace("\"", "").trim();
-                LocalDate fechaPlantacion = LocalDate.parse(partes[5].replace("\"", "").trim()); // Conversión de String a LocalDate
-                String estado = partes[6].replace("\"", "").trim();
+                String nombre = partes[0].replace("\"", "").trim();
+                String variedad = partes[1].replace("\"", "").trim();
+                double area = Double.parseDouble(partes[2].replace("\"", "").trim());
+                String parcela = partes[3].replace("\"", "").trim();
+                LocalDate fechaPlantacion = LocalDate.parse(partes[4].replace("\"", "").trim());
+                String estado = partes[5].replace("\"", "").trim();
 
                 // Procesar la lista de actividades
-                String actividadesRaw = partes[7].replace("[", "").replace("]", "").replace("\"", "").trim();
+                String actividadesRaw = partes[6].replace("[", "").replace("]", "").replace("\"", "").trim();
                 List<Actividad> actividades = new ArrayList<>();
                 if (!actividadesRaw.isEmpty()) {
                     String[] actividadesPartes = actividadesRaw.split(",");
@@ -75,26 +75,26 @@ public class CSVHandler {
      */
     public void guardarCultivosEnCSV(String path, List<Cultivo> cultivos) {
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(path))) {
-            for (Cultivo c : cultivos) {
+            for (Cultivo cultivo : cultivos) {
                 // Convertir la lista de actividades a texto
-                String actividades = "[" + c.getActividades().stream()
-                        .map(a -> "\"" + a.getTipo() + ":" + a.getFecha() + "\"")
-                        .reduce((a, b) -> a + "," + b).orElse("") + "]";
+                String actividades = "[";
+                actividades += String.join(",", cultivo.getActividades().stream()
+                        .map(a -> a.getTipo() + ":" + a.getFecha().toString())
+                        .toArray(String[]::new));
+                actividades += "]";
 
-                // Formatear la línea para el archivo CSV
-                String linea = String.format(
-                        "Cultivo,\"%s\",\"%s\",%.2f,\"%s\",\"%s\",\"%s\",%s",
-                        c.getNombre(), c.getVariedad(), c.getArea(),
-                        c.getParcela(), c.getFechaPlantacion(),
-                        c.getEstado(), actividades
-                );
-
-                // Escribir la línea en el archivo
-                writer.write(linea);
+                // Escribir cada línea en el archivo
+                writer.write("\"" + cultivo.getNombre() + "\",\"" +
+                        cultivo.getVariedad() + "\",\"" +
+                        cultivo.getArea() + "\",\"" +
+                        cultivo.getParcela() + "\",\"" +
+                        cultivo.getFechaPlantacion() + "\",\"" +
+                        cultivo.getEstado() + "\",\"" +
+                        actividades + "\"");
                 writer.newLine();
             }
         } catch (IOException e) {
-            System.err.println("Error escribiendo el archivo: " + e.getMessage());
+            System.err.println("Error al guardar los cultivos en el archivo CSV: " + e.getMessage());
         }
     }
 }
