@@ -1,0 +1,8 @@
+models\ElementoAgricola.class
+ui\Menu.class
+models\Parcela.class
+models\Cultivo.class
+app\App2.class
+services\CultivoService.class
+utils\CSVHandler.class
+models\Actividad.class
